@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
-@interface COINSViewController : UIViewController
+@interface COINSViewController : UIViewController <UITextFieldDelegate, AVAudioRecorderDelegate>
 
 @end

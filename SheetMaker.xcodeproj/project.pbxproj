@@ -22,6 +22,9 @@
 		436EF5C618937A6A00BCEF86 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436EF5A518937A6A00BCEF86 /* UIKit.framework */; };
 		436EF5CE18937A6A00BCEF86 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 436EF5CC18937A6A00BCEF86 /* InfoPlist.strings */; };
 		436EF5D018937A6A00BCEF86 /* SheetMakerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 436EF5CF18937A6A00BCEF86 /* SheetMakerTests.m */; };
+		436EF5DA18937B1E00BCEF86 /* sample.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 436EF5D918937B1E00BCEF86 /* sample.jpg */; };
+		436EF5DC18939F9200BCEF86 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436EF5DB18939F9200BCEF86 /* AVFoundation.framework */; };
+		436EF5E31893E50000BCEF86 /* UTSoundButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 436EF5E21893E50000BCEF86 /* UTSoundButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +58,10 @@
 		436EF5CB18937A6A00BCEF86 /* SheetMakerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SheetMakerTests-Info.plist"; sourceTree = "<group>"; };
 		436EF5CD18937A6A00BCEF86 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		436EF5CF18937A6A00BCEF86 /* SheetMakerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SheetMakerTests.m; sourceTree = "<group>"; };
+		436EF5D918937B1E00BCEF86 /* sample.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sample.jpg; sourceTree = "<group>"; };
+		436EF5DB18939F9200BCEF86 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		436EF5E11893E50000BCEF86 /* UTSoundButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UTSoundButton.h; sourceTree = "<group>"; };
+		436EF5E21893E50000BCEF86 /* UTSoundButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UTSoundButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				436EF5DC18939F9200BCEF86 /* AVFoundation.framework in Frameworks */,
 				436EF5A418937A6A00BCEF86 /* CoreGraphics.framework in Frameworks */,
 				436EF5A618937A6A00BCEF86 /* UIKit.framework in Frameworks */,
 				436EF5A218937A6A00BCEF86 /* Foundation.framework in Frameworks */,
@@ -103,6 +111,7 @@
 		436EF5A018937A6A00BCEF86 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				436EF5DB18939F9200BCEF86 /* AVFoundation.framework */,
 				436EF5A118937A6A00BCEF86 /* Foundation.framework */,
 				436EF5A318937A6A00BCEF86 /* CoreGraphics.framework */,
 				436EF5A518937A6A00BCEF86 /* UIKit.framework */,
@@ -114,6 +123,8 @@
 		436EF5A718937A6A00BCEF86 /* SheetMaker */ = {
 			isa = PBXGroup;
 			children = (
+				436EF5DD1893E46800BCEF86 /* View */,
+				436EF5D918937B1E00BCEF86 /* sample.jpg */,
 				436EF5B018937A6A00BCEF86 /* COINSAppDelegate.h */,
 				436EF5B118937A6A00BCEF86 /* COINSAppDelegate.m */,
 				436EF5B318937A6A00BCEF86 /* Main_iPhone.storyboard */,
@@ -153,6 +164,15 @@
 				436EF5CC18937A6A00BCEF86 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		436EF5DD1893E46800BCEF86 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				436EF5E11893E50000BCEF86 /* UTSoundButton.h */,
+				436EF5E21893E50000BCEF86 /* UTSoundButton.m */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,6 +256,7 @@
 				436EF5BD18937A6A00BCEF86 /* Images.xcassets in Resources */,
 				436EF5B518937A6A00BCEF86 /* Main_iPhone.storyboard in Resources */,
 				436EF5AC18937A6A00BCEF86 /* InfoPlist.strings in Resources */,
+				436EF5DA18937B1E00BCEF86 /* sample.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,6 +275,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				436EF5E31893E50000BCEF86 /* UTSoundButton.m in Sources */,
 				436EF5AE18937A6A00BCEF86 /* main.m in Sources */,
 				436EF5BB18937A6A00BCEF86 /* COINSViewController.m in Sources */,
 				436EF5B218937A6A00BCEF86 /* COINSAppDelegate.m in Sources */,
