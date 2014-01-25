@@ -10,4 +10,8 @@
 
 @interface UTSoundButton : UIButton
 
+@property NSString *soundFilePath; 
+
++ (id)buttonAtPoint:(CGPoint)point;
+
 @end

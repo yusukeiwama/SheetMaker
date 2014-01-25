@@ -31,7 +31,6 @@
 	[self.sheetImageView addGestureRecognizer:panGestureRecognizer];
 	
 	UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressAction:)];
-	longPressGestureRecognizer.minimumPressDuration = 1.0;
 	[self.sheetImageView addGestureRecognizer:longPressGestureRecognizer];
 }
 
@@ -44,10 +43,29 @@
 
 - (void)panAction:(id)sender
 {
+	static UIView *whiteView;
+	if (whiteView == nil) {
+		whiteView = [[UIView alloc] init];
+		whiteView.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.5];
+		whiteView.layer.borderWidth = 3.0;
+		[self.sheetImageView addSubview:whiteView];
+	}
+	
 	UIPanGestureRecognizer *pan = sender;
 	NSLog(@"Location = (%5.1f, %5.1f), Translation = (%5.1f, %5.1f), State = %d", [pan locationInView:self.sheetImageView].x, [pan locationInView:self.sheetImageView].y, [pan translationInView:self.sheetImageView].x, [pan translationInView:self.sheetImageView].y, pan.state);
 	
+	// Update whiteView's frame
+	if (pan.state == UIGestureRecognizerStateChanged) {
+		whiteView.hidden = NO;
+		whiteView.frame = CGRectMake([pan locationInView:self.sheetImageView].x - [pan translationInView:self.sheetImageView].x,
+									 [pan locationInView:self.sheetImageView].y - [pan translationInView:self.sheetImageView].y,
+									 [pan translationInView:self.sheetImageView].x,
+									 [pan translationInView:self.sheetImageView].y);
+	}
+	
+	// Add field
 	if (pan.state == UIGestureRecognizerStateEnded) {
+		whiteView.hidden = YES;
 		CGRect frame = CGRectMake([pan locationInView:self.sheetImageView].x - [pan translationInView:self.sheetImageView].x,
 								  [pan locationInView:self.sheetImageView].y - [pan translationInView:self.sheetImageView].y,
 								  [pan translationInView:self.sheetImageView].x,
@@ -74,7 +92,6 @@
     NSString *docsDir;
 	
     dirPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    //here i took cache directory as saved directory you can also take   NSDocumentDirectory
     docsDir = [dirPaths objectAtIndex:0];
 	
 	// At this path the recorded audio will be saved.
@@ -98,18 +115,12 @@
     if ( error ) {
         NSLog( @"error: %@", [error localizedDescription] );
     } else {
-        [_recorder prepareToRecord];
-//        [self recordAudio];
+        if ([_recorder prepareToRecord]) NSLog(@"succeeded in preparing");
+        [self recordAudio];
 	}
     
-    UTSoundButton *soundButton = [UTSoundButton buttonWithType:UIButtonTypeCustom];
-    CGFloat buttonRadius = 22.0;
-    soundButton.frame = CGRectMake([longPressGestureRecognizer locationInView:self.sheetImageView].x - buttonRadius,
-                                   [longPressGestureRecognizer locationInView:self.sheetImageView].y - buttonRadius,
-                                   2 * buttonRadius, 2 * buttonRadius);
-    soundButton.layer.borderColor = [[UIColor blackColor] CGColor];
-    soundButton.layer.borderWidth = 1.0;
-    soundButton.layer.cornerRadius = buttonRadius;
+	CGPoint touchPoint = [longPressGestureRecognizer locationInView:self.sheetImageView];
+    UTSoundButton *soundButton = [UTSoundButton buttonAtPoint:touchPoint];
     [self.sheetImageView addSubview:soundButton];
 }
 
@@ -118,7 +129,8 @@
 	if (!_recorder.recording)
 	{
 		_recorder.delegate = self;
-		[_recorder recordForDuration:3.0];
+		// FIXME: Can't record
+		if ([_recorder recordForDuration:3.0]) NSLog(@"succeeded in recording");
 	}
 }
 
@@ -126,7 +138,20 @@
 
 -(void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag
 {
-	//Your code after sucessful recording;
+	// Your code after sucessful recording;
+	if (flag == false) {
+		NSLog(@"fail to record");
+	} else {
+		NSLog(@"succeeded to record");
+	}
+	NSArray *dirPaths;
+    NSString *docsDir;
+	dirPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    docsDir = [dirPaths objectAtIndex:0];
+	NSString *soundFilePath = [docsDir stringByAppendingPathComponent:@"sound.caf"];
+    NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
+	AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
+	[player play];
 }
 -(void)audioRecorderEncodeErrorDidOccur:(AVAudioRecorder *)recorder error:(NSError *)error
 {

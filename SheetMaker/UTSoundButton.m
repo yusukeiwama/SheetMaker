@@ -10,22 +10,19 @@
 
 @implementation UTSoundButton
 
-- (id)initWithFrame:(CGRect)frame
++ (id)buttonAtPoint:(CGPoint)point
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
+	UTSoundButton *button = [super buttonWithType:UIButtonTypeCustom];
+	if (button) {
+		CGFloat buttonRadius = 22.0;
+		button.frame = CGRectMake(point.x - buttonRadius,
+								  point.y - buttonRadius,
+								  2 * buttonRadius, 2 * buttonRadius);
+		button.layer.borderColor = [[UIColor blackColor] CGColor];
+		button.layer.borderWidth = 1.0;
+		button.layer.cornerRadius = buttonRadius;
+	}
+	return button;
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end
